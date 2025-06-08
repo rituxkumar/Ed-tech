@@ -117,3 +117,29 @@ export const courseDetails = async (req, res) => {
     console.log("Error in course details", error);
   }
 };
+
+export const buyCourses = async (req, res) => {
+  const { userId } = req;
+  const { courseId } = req.params;
+
+  try {
+    const course = await Course.findById(courseId)
+    if(!course){
+      return res.ststus(404).json({error:"Courses are not found"});
+    }
+    const existingPurchase = await Purchase.findOne({userId,courseId})
+    if(existingPurchase){
+      return res.status(400).json({error:"User has already purchased this course"});
+    }
+      
+    const newPurchase = new Purchase({userId,courseId})
+
+    await newPurchase.save()
+    res.status(201).json({message:"Course purchased successfully",newPurchase})
+
+
+  } catch (error) {
+    res.status(500).json({ errors: "Error in course buying" });
+    console.log("error in course buying", error);
+  }
+};

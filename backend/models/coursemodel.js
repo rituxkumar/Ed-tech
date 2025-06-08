@@ -16,12 +16,12 @@ const courseSchema = new mongoose.Schema({
   image: {
     public_id: {
       type: "String",
-      required:true
+      required: true,
     },
-    url:{
-        type: "String",
-    required: "true",
-    }
+    url: {
+      type: "String",
+      required: "true",
+    },
   },
 });
 
