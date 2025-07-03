@@ -11,4 +11,4 @@ const purchaseSchema = new mongoose.Schema({
   },
 });
 
-export const User = mongoose.model("Purchase", purchaseSchema);
+export const Purchase = mongoose.model("Purchase", purchaseSchema);

@@ -11,6 +11,7 @@ app.use(express.json());
 
 dotenv.config();
 
+
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -28,6 +29,7 @@ try {
   console.log("database connection failed");
 }
 
+
 //defining route
 
 app.use("/api/v1/course", courseRoute);
@@ -42,9 +44,11 @@ cloudinary.config({
 });
 
 app.get("/", (req, res) => {
-  res.send("hello world !!!!");
+  res.send("hello world !!!");
 });
 
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
 });
+
+

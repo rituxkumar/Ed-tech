@@ -1,5 +1,6 @@
 import { Course } from "../models/coursemodel.js";
 import { v2 as cloudinary } from "cloudinary";
+import { Purchase } from "../models/purchasemodel.js";
 
 export const createCourse = async (req, res) => {
   const { title, description, price } = req.body;
