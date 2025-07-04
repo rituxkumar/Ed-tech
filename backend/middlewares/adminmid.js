@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import config from "../config.js";
 
-function userMiddleware(req, res, next) {
+function adminMiddleware(req, res, next) {
   // console.log(config.JWT_USER_PASSWORD);
   const authHeader = req.headers.authorization;
   console.log(authHeader);
@@ -12,11 +12,11 @@ function userMiddleware(req, res, next) {
 
   const token = authHeader.split(" ")[1];
   try {
-    console.log(process.env.JWT_USER_PASSWORD);
-    const decoded = jwt.verify(token, process.env.JWT_USER_PASSWORD);
+    console.log(process.env.JWT_ADMIN_PASSWORD);
+    const decoded = jwt.verify(token, process.env.JWT_ADMIN_PASSWORD);
 
     console.log("decoded");
-    req.userId = decoded.id;
+    req.adminId = decoded.id;
     next();
   } catch (error) {
     console.log(error);
@@ -25,4 +25,4 @@ function userMiddleware(req, res, next) {
   }
 }
 
-export default userMiddleware;
+export default adminMiddleware;
