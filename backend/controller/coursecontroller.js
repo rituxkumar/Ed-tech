@@ -2,38 +2,94 @@ import { Course } from "../models/coursemodel.js";
 import { v2 as cloudinary } from "cloudinary";
 import { Purchase } from "../models/purchasemodel.js";
 
+// export const createCourse = async (req, res) => {
+//   const adminId = req.adminId
+//   const { title, description, price } = req.body;
+//   // console.log(title,description,price);
+
+//   try {
+//     if (!title || !description || !price) {
+//       return res.status(400).json({ errors: "All fields are required" });
+//     }
+
+//     const { image } = req.files;
+//     if (!req.files || Object.keys(req.files).length === 0) {
+//       return res.status(400).json({ errors: "No file uploaded" });
+//     }
+
+//     const allowedFormat = ["image/png", "image/jpeg"];
+//     if (!allowedFormat.includes(image.mimetype)) {
+//       return res
+//         .status(400)
+//         .json({ errors: "invalid file format,jpg and png are allowed" });
+//     }
+
+//     //cloudinary code
+//     const cloud_response = await cloudinary.uploader.upload(image.tempFilePath);
+
+//     if (!cloud_response || cloud_response.error) {
+//       return res
+//         .status(400)
+//         .json({ errors: "Error while uploading file to cloudinary" });
+//     }
+
+//     const courseData = {
+//       title,
+//       description,
+//       price,
+//       image: {
+//         public_id: cloud_response.public_id,
+//         url: cloud_response.url,
+//       },
+//       creatorId:adminId
+//     };
+//     const course = await Course.create(courseData);
+//     res.json({
+//       message: "Course created successfully",
+//       course,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Error while creating course" });
+//   }
+// };
+
 export const createCourse = async (req, res) => {
-  const adminId = req.adminId
+  const adminId = req.adminId;
   const { title, description, price } = req.body;
-  // console.log(title,description,price);
+
 
   try {
+    // Basic validation
     if (!title || !description || !price) {
       return res.status(400).json({ errors: "All fields are required" });
     }
 
-    const { image } = req.files;
-    if (!req.files || Object.keys(req.files).length === 0) {
+    // Check if file is uploaded
+    if (!req.files || !req.files.image) {
       return res.status(400).json({ errors: "No file uploaded" });
     }
+
+    const image = req.files.image;
 
     const allowedFormat = ["image/png", "image/jpeg"];
     if (!allowedFormat.includes(image.mimetype)) {
       return res
         .status(400)
-        .json({ errors: "invalid file format,jpg and png are allowed" });
+        .json({ errors: "Invalid file format. Only JPG and PNG are allowed" });
     }
 
-    //cloudinary code
+    // Upload to Cloudinary
     const cloud_response = await cloudinary.uploader.upload(image.tempFilePath);
 
     if (!cloud_response || cloud_response.error) {
       return res
         .status(400)
-        .json({ errors: "Error while uploading file to cloudinary" });
+        .json({ errors: "Error while uploading file to Cloudinary" });
     }
 
-    const courseData = {
+    // Save course
+    const course = await Course.create({
       title,
       description,
       price,
@@ -41,18 +97,20 @@ export const createCourse = async (req, res) => {
         public_id: cloud_response.public_id,
         url: cloud_response.url,
       },
-      creatorId:adminId
-    };
-    const course = await Course.create(courseData);
+      creatorId: adminId,
+    });
+
     res.json({
       message: "Course created successfully",
       course,
     });
+
   } catch (error) {
-    console.log(error);
+    console.error("Create course error:", error);
     res.status(500).json({ error: "Error while creating course" });
   }
 };
+
 
 export const updateCourse = async (req, res) => {
   const adminId = req.adminId
@@ -85,12 +143,16 @@ export const deleteCourse = async (req, res) => {
   const adminId = req.adminId
   const { courseId } = req.params;
   try {
+    console.log(courseId,adminId);
+    
     const course = await Course.findOneAndDelete({
       _id: courseId,
       creatorId:adminId,
     });
+    console.log(course);
+    
     if (!course) {
-      return res.status(200).json({
+      return res.status(400).json({
         error: "course are not found",
       });
       res.status(200).json({ message: "Course deleted successfully" });

@@ -7,19 +7,29 @@ import userRoute from "./routes/userroute.js";
 import adminRoute from "./routes/adminroute.js";
 import fileUpload from "express-fileupload";
 import { v2 as cloudinary } from "cloudinary";
-import cookieParser from "cookie-parser";
+import cors from "cors";
+
+// import cookieParser from "cookie-parser";
+
+
+// app.use(cookieParser());
+// app.use(express.urlencoded({extended:true}))
 
 app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({extended:true}))
-app.use(fileUpload());
 dotenv.config();
-
-
 app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
+  })
+);
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -33,13 +43,12 @@ try {
   console.log("database connection failed");
 }
 
-
 //defining route
 
 app.use("/api/v1/course", courseRoute);
 
 app.use("/api/v1/user", userRoute);
-app.use("/api/v1/admin",adminRoute);
+app.use("/api/v1/admin", adminRoute);
 
 // Configuration code of cloudinary
 cloudinary.config({
@@ -55,5 +64,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
 });
-
-
