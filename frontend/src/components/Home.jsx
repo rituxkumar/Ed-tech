@@ -11,11 +11,36 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Footer from "./Footer";
 import Card from "./Card";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=>{
+     const token = localStorage.getItem("user");
+     if(token){
+      setIsLoggedIn(true);
+     }else{
+      setIsLoggedIn(false);
+     }
+  },[])
+
+  const handleLogout = async () => {
+    try {
+      const response = axios.get("http://localhost:3000/api/v1/user/logout", {
+        withCredentials: true,
+      });
+      toast.success((await response).data.message);
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.log("Error in logging out", error);
+      toast.error(error.response.data.errors || "Error in logging out");
+    }
+  };
+
   console.log(courses);
-  
+
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -78,18 +103,29 @@ const Home = () => {
             <h1 className="text-2xl text-orange-400 font-bold">SkillLoom</h1>
           </div>
           <div className="space-x-4 mx-20">
-            <Link
-              to={"/login"}
-              className="bg-transparent text-white py-2 px-4 border border-white rounded"
-            >
-              Login
-            </Link>
-            <Link
-              to={"/signup"}
-              className="bg-transparent text-white py-2 px-4 border border-white rounded"
-            >
-              Signup
-            </Link>
+            {isLoggedIn ? (
+              <button 
+                 onClick = {handleLogout}
+                className="bg-transparent text-white py-2 px-4 border border-white rounded"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to={"/login"}
+                  className="bg-transparent text-white py-2 px-4 border border-white rounded"
+                >
+                  Login
+                </Link>
+                <Link
+                  to={"/signup"}
+                  className="bg-transparent text-white py-2 px-4 border border-white rounded"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
           </div>
         </header>
         <section className="text-center mb-20">
@@ -99,42 +135,49 @@ const Home = () => {
             Enhanced Your Skills crafted by experts.
           </p>
           <div className="space-x-4 mt-8">
-            <button className="bg-green-400 text-white py-3 px-6 rounded font-semibold hover:bg-white duration-300 hover:text-black">
+            <Link to={"/courses"} className="bg-green-400 text-white py-3 px-6 rounded font-semibold hover:bg-white duration-300 hover:text-black">
               Explore courses
-            </button>
-            <button className="bg-white text-black py-3 px-6 rounded font-semibold hover:bg-green-400 duration-300 hover:text-white">
+            </Link>
+            <Link to={"https://www.youtube.com/watch?v=8ASs9z38YVU"} className="bg-white text-black py-3 px-6 rounded font-semibold hover:bg-green-400 duration-300 hover:text-white">
               Courses Videos
-            </button>
+            </Link>
           </div>
         </section>
 
         <section>
           <div className="slider-container ml-20  ">
-
-               <Slider {...settings}>
-            {courses.map((course) => (
-              <div key={course._id} className=" p-4 rounded-md items-center  ">
-                <div className=" ">
-                  <div className="flex flex-col justify-center items-center">
-                    <img className="w-48 hover:scale-105" src={course.image?.url} alt="" />
-                    <div>
-                      <h2 className="text-white text-center pb-2">{course.title}</h2>
-                      <button className="bg-orange-400 text-white px-3 py-1 rounded-3xl cursor-pointer hover:bg-orange-500">Enroll now</button>
+            <Slider {...settings}>
+              {courses.map((course) => (
+                <div
+                  key={course._id}
+                  className=" p-4 rounded-md items-center  "
+                >
+                  <div className=" ">
+                    <div className="flex flex-col justify-center items-center">
+                      <img
+                        className="w-48 hover:scale-105"
+                        src={course.image?.url}
+                        alt=""
+                      />
+                      <div>
+                        <h2 className="text-white text-center pb-2">
+                          {course.title}
+                        </h2>
+                        <button className="bg-orange-400 text-white px-3 py-1 rounded-3xl cursor-pointer hover:bg-orange-500">
+                          Enroll now
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
-
+              ))}
+            </Slider>
           </div>
-       
         </section>
 
-      
-       <hr  className="mt-8"/>
+        <hr className="mt-8" />
         <div className="bg-gradient-to-r from-black to-blue-900 text-white">
-          <Footer/>
+          <Footer />
         </div>
       </div>
     </div>

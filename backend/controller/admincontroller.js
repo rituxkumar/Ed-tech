@@ -49,16 +49,21 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req,res) => {
+   
   const { email, password } = req.body;
-
+     console.log(email, password);
   try {
-    const admin = await Admin.findOne({ email: email });
-    const isPasswordCorrect = await bcrypt.compare(password, admin.password);
+   
+    const admin = await Admin.findOne({email:email});
+    console.log(admin);
+    
+    const isPasswordCorrect = await bcrypt.compare(password,admin.password);
 
     if (!admin || !isPasswordCorrect) {
       return res.status(400).json({ errors: "Invalid Credentials" });
     }
+    console.log("gggb");
 
     //jwt code logic
 
@@ -76,9 +81,13 @@ export const login = async (req, res) => {
     res.cookie("jwt", token, cookieOptions);
 
     res.status(201).json({ message: "Login successfully", admin, token });
+
+
+
   } catch (error) {
-    res.status(500).json({ errors: "Error while login" });
-    console.log("error while login", error);
+     console.log("eeee");
+    res.status(500).json({ errors: "Error while login...." });
+    console.log("error while login....", error);
   }
 };
 

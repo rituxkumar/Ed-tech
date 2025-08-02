@@ -7,7 +7,7 @@ function userMiddleware(req, res, next) {
   console.log(authHeader);
 
   if (!authHeader || !authHeader.startsWith("Bearer")) {
-    return res.status(401).json({ errors: "No token provided..." });
+    return res.status(401).json({ errors: "No token provided." });
   }
 
   const token = authHeader.split(" ")[1];

@@ -50,7 +50,8 @@ app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/admin", adminRoute);
 
-// Configuration code of cloudinary
+// Co
+// nfiguration code of cloudinary
 cloudinary.config({
   cloud_name: process.env.cloud_name,
   api_key: process.env.api_key,

@@ -67,7 +67,7 @@ export const login = async (req, res) => {
     });
 
     const cookieOptions = {
-      expiresIn: 24*60*60*1000,
+      expiresIn: 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict", // attack
@@ -82,13 +82,24 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = (req, res) => {
+export const logout = async(req,res) => {
   try {
-    if(!req.cookies.jwt){
-      return
-      res.status(401).json({errors:"Kindly login first"})
+
+    console.log(req);
+    
+    if (!req.cookies.jwt) {
+    
+      return res.status(401).json({ errors: "Kindly login first" });
+      
     }
-    res.clearCookie("jwt");
+
+  
+    res.clearCookie("jwt",{
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict", 
+    });
+
     res.status(200).json({ message: "Logout successfully !!" });
   } catch (error) {
     res.status(500).json({ errors: "Error in logout" });
@@ -109,10 +120,16 @@ export const purchases = async (req, res) => {
     const courseData = await Course.find({
       _id: { $in: purchasedCourseId },
     });
+
+    
+    console.log(purchased , courseData
+
+
+    );
+    
     res.status(200).json({ purchased, courseData });
   } catch (error) {
-    res.status(500).json({errors:"Error in purchase"});
-    console.log("error in purchase",error);
-    
+    res.status(500).json({ errors: "Error in purchase" });
+    console.log("error in purchase", error);
   }
 };

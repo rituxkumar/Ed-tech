@@ -2,11 +2,15 @@ import logo from "../../public/logo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 
-const Login = () => {
+import {  toast } from 'react-toastify';
+
+const AdminSignup = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage,setErrorMessage] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,8 +18,10 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
+        "http://localhost:3000/api/v1/admin/signup",
         {
+          firstName,
+          lastName,
           email,
           password,
         },
@@ -27,15 +33,17 @@ const Login = () => {
         }
       );
 
-      console.log("Login Done:", response.data);
-      toast.success(response.data.message);
-      console.log(response.data.token);
-      
-      localStorage.setItem("user",response.data.token);
-      navigate("/");
+      console.log("SignUp Done:", response.data);
+      alert(response.data.message);
+      navigate("/admin/login");
     } catch (error) {
+     
+      if (error.response) {
+       
+         toast.error(error.response.data.errors[0])
+        setErrorMessage(error.response.data.errors || "Signup Failed!!!");
+      }
       console.log(error);
-      toast.error(error.response.data.errors);
     }
   };
 
@@ -49,10 +57,10 @@ const Login = () => {
           </div>
           <div className="space-x-4 mx-20">
             <Link
-              to={"/signup"}
+              to={"/admin/login"}
               className="bg-transparent text-white py-2 px-4 border border-white rounded"
             >
-              Signup
+              Login
             </Link>
             <Link
               to={"/signup"}
@@ -69,9 +77,36 @@ const Login = () => {
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>
           <p className="text-gray-400 mb-6 text-center">
-            Just Login To Join Us...
+            Just Signup To Play With DashBoard...
           </p>
           <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="firstName" className="text-gray-400 mb-2">
+                FirstName
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter Your FirstName"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="LastName" className="text-gray-400 mb-2">
+                LastName
+              </label>
+              <input
+                type="text"
+                id="LastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter Your LastName"
+              />
+            </div>
             <div className="mb-4">
               <label htmlFor="email" className="text-gray-400 mb-2">
                 email
@@ -104,12 +139,13 @@ const Login = () => {
                 </span> */}
               </div>
             </div>
+       
             <button
               onClick={handleSubmit}
               type="submit"
               className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition"
             >
-              Login
+              Signup
             </button>
           </form>
         </div>
@@ -118,4 +154,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminSignup;
+

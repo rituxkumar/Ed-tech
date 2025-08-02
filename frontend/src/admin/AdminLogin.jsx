@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -14,10 +14,9 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
+        "http://localhost:3000/api/v1/admin/login",
         {
-          email,
-          password,
+          email,password
         },
         {
           withCredentials: true,
@@ -26,13 +25,15 @@ const Login = () => {
           },
         }
       );
+      console.log(response);
+      
 
       console.log("Login Done:", response.data);
       toast.success(response.data.message);
       console.log(response.data.token);
       
-      localStorage.setItem("user",response.data.token);
-      navigate("/");
+      localStorage.setItem("admin",response.data.token);
+      navigate("/admin/dashboard");
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.errors);
@@ -49,7 +50,7 @@ const Login = () => {
           </div>
           <div className="space-x-4 mx-20">
             <Link
-              to={"/signup"}
+              to={"/admin/signup"}
               className="bg-transparent text-white py-2 px-4 border border-white rounded"
             >
               Signup
@@ -69,7 +70,7 @@ const Login = () => {
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>
           <p className="text-gray-400 mb-6 text-center">
-            Just Login To Join Us...
+            Just Login To Access AdminDashboard...
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -118,4 +119,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
+

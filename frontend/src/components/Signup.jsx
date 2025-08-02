@@ -1,17 +1,20 @@
 import logo from "../../public/logo.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
+
+import {  toast } from 'react-toastify';
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage,setErrorMessage] = useState();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     try {
       const response = await axios.post(
@@ -29,13 +32,18 @@ const Signup = () => {
           },
         }
       );
+
       console.log("SignUp Done:", response.data);
       alert(response.data.message);
+      navigate("/login");
     } catch (error) {
      
-        console.log(error);
-    
-      
+      if (error.response) {
+       
+         toast.error(error.response.data.errors[0])
+        setErrorMessage(error.response.data.errors || "Signup Failed!!!");
+      }
+      console.log(error);
     }
   };
 
@@ -117,24 +125,23 @@ const Signup = () => {
                 password
               </label>
               <div className="relative  ">
-                <input 
+                <input
                   type="password"
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className= " relative w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className=" relative w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="********"
                   required
-
-                  
                 />
                 {/* <span className="absoulte left-0 top-0  text-gray-500 cursor-pointer">
                   👁️
                 </span> */}
-
               </div>
             </div>
-            <button onClick={handleSubmit}
+       
+            <button
+              onClick={handleSubmit}
               type="submit"
               className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition"
             >

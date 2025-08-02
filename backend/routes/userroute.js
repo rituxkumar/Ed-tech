@@ -1,6 +1,5 @@
 import express from "express";
 import { signup,login, logout, purchases } from "../controller/usercontroller.js";
-import { Purchase } from "../models/purchasemodel.js";
 import userMiddleware from "../middlewares/usermid.js";
 
 
