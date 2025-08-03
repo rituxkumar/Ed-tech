@@ -105,7 +105,7 @@ const Courses = () => {
               </a>
             </li>
             <li className="mb-4">
-              <a href="/purchases" className="flex items-center">
+              <a href="/purchases" className="flex items-center nhjh">
                 <FaDownload className="mr-2" /> Purchases
               </a>
             </li>
