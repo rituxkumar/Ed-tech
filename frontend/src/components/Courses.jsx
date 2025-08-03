@@ -22,6 +22,7 @@ const Courses = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [courses, setCourses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
     console.log("courses: ", courses);
 
       useEffect(() => {
@@ -54,12 +55,13 @@ const Courses = () => {
 
     const handleLogout = async () => {
     try {
-      const response = await axios.get(`${BACKEND_URL}/user/logout`, {
+      const response = await axios.get(`${BACKEND_URL}/api/v1/user/logout`, {
         withCredentials: true,
       });
       toast.success(response.data.message);
       localStorage.removeItem("user");
       setIsLoggedIn(false);
+      navigate("/")
     } catch (error) {
       console.log("Error in logging out ", error);
       toast.error(error.response.data.errors || "Error in logging out");
@@ -107,11 +109,11 @@ const Courses = () => {
                 <FaDownload className="mr-2" /> Purchases
               </a>
             </li>
-            <li className="mb-4">
+            {/* <li className="mb-4">
               <a href="#" className="flex items-center">
                 <IoMdSettings className="mr-2" /> Settings
               </a>
-            </li>
+            </li> */}
             <li>
               {isLoggedIn ? (
                 <Link to={"/"}
@@ -165,12 +167,12 @@ const Courses = () => {
               {courses.map((course) => (
                 <div
                   key={course._id}
-                  className="border border-gray-200 rounded-lg p-4 gap-2 shadow-sm w-[300px]"
+                  className="border mb-6 border-gray-200 rounded-lg p-4 gap-2 shadow-sm w-[300px]"
                 >
                   <img
-                    src={course.image.url}
+                    src={course.image?.url}
                     alt={course.title}
-                    className="rounded mb-4 w-36"
+                    className="rounded mb-4 w-36 h-[200px] "
                   />
                   <h2 className="font-bold text-lg mb-2">{course.title}</h2>
                   <p className="text-gray-600 mb-4">
@@ -188,7 +190,14 @@ const Courses = () => {
 
              
                   <Link
-                    to={`/buy/${course._id}`} // Pass courseId in URL
+                    to={`/buy/${course._id}`}
+                    state={{
+                      image:course.image?.url,
+                      title:course.title,
+                      description:course.description,
+                      price:course.price,
+
+                    }} // Pass courseId in URL
                     className="bg-orange-500 w-full text-white px-4 py-2 rounded-lg hover:bg-blue-900 duration-300"
                   >
                     Buy Now

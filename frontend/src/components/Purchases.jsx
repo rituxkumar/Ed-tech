@@ -58,12 +58,12 @@ function Purchases() {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get(`${BACKEND_URL}/user/logout`, {
+      const response = await axios.get(`${BACKEND_URL}/api/v1/user/logout`, {
         withCredentials: true,
       });
       toast.success(response.data.message);
       localStorage.removeItem("user");
-      navigate("/login");
+      navigate("/");
       setIsLoggedIn(false);
     } catch (error) {
       console.log("Error in logging out ", error);
@@ -99,11 +99,11 @@ function Purchases() {
                 <FaDownload className="mr-2" /> Purchases
               </a>
             </li>
-            <li className="mb-4">
+            {/* <li className="mb-4">
               <Link to="/settings" className="flex items-center">
                 <IoMdSettings className="mr-2" /> Settings
               </Link>
-            </li>
+            </li> */}
             <li>
               {isLoggedIn ? (
                 <button onClick={handleLogout} className="flex items-center">

@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../public/logo.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 const Home = () => {
   const [courses, setCourses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(()=>{
      const token = localStorage.getItem("user");
@@ -100,7 +101,8 @@ const Home = () => {
         <header className="flex  items-center justify-between p-6">
           <div className="space-x-2 flex items-center mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 className="text-2xl text-orange-400 font-bold">SkillLoom</h1>
+            <h1 onClick={()=>navigate('/')} className="text-2xl text-orange-400 font-bold cursor-pointer ">SkillLoom</h1>
+            <p onClick={()=>navigate('/admin/dashboard')} className="px-3 py-1 border-2 rounded-md cursor-pointer hover:bg-blue-600">Admin</p>
           </div>
           <div className="space-x-4 mx-20">
             {isLoggedIn ? (
@@ -145,7 +147,7 @@ const Home = () => {
         </section>
 
         <section>
-          <div className="slider-container ml-20  ">
+          <div className="slider-container  px-20  ">
             <Slider {...settings}>
               {courses.map((course) => (
                 <div
@@ -155,7 +157,7 @@ const Home = () => {
                   <div className=" ">
                     <div className="flex flex-col justify-center items-center">
                       <img
-                        className="w-48 hover:scale-105"
+                        className="w-48 hover:scale-105 h-[200px] rounded-md"
                         src={course.image?.url}
                         alt=""
                       />
@@ -163,7 +165,7 @@ const Home = () => {
                         <h2 className="text-white text-center pb-2">
                           {course.title}
                         </h2>
-                        <button className="bg-orange-400 text-white px-3 py-1 rounded-3xl cursor-pointer hover:bg-orange-500">
+                        <button onClick={()=>navigate('/courses')} className="bg-orange-400 text-white px-3 py-1 rounded-3xl cursor-pointer hover:bg-orange-500">
                           Enroll now
                         </button>
                       </div>

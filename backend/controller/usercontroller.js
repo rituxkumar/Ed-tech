@@ -85,7 +85,8 @@ export const login = async (req, res) => {
 export const logout = async(req,res) => {
   try {
 
-    console.log(req);
+    // console.log(req);
+    console.log(req.cookies.jwt);
     
     if (!req.cookies.jwt) {
     
@@ -96,7 +97,7 @@ export const logout = async(req,res) => {
   
     res.clearCookie("jwt",{
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure:process.env.NODE_ENV === "production",
       sameSite: "Strict", 
     });
 

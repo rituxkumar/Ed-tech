@@ -3,16 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Spiner from "../components/Spiner";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loader,setLoader] = useState(false)
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setLoader(true);
       const response = await axios.post(
         "http://localhost:3000/api/v1/admin/login",
         {
@@ -28,15 +32,18 @@ const AdminLogin = () => {
       console.log(response);
       
 
-      console.log("Login Done:", response.data);
+      console.log("Login Done:", response.data.message);
+       navigate("/admin/dashboard");
       toast.success(response.data.message);
       console.log(response.data.token);
       
       localStorage.setItem("admin",response.data.token);
-      navigate("/admin/dashboard");
+     
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.errors);
+    }finally{
+      setLoader(false)
     }
   };
 
@@ -46,7 +53,7 @@ const AdminLogin = () => {
         <header className="flex w-full  items-center justify-between p-6">
           <div className="space-x-2 flex items-center mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 className="text-2xl text-orange-400 font-bold">SkillLoom</h1>
+            <h1 onClick={()=>navigate("/")} className="text-2xl text-orange-400 font-bold cursor-pointer">SkillLoom</h1>
           </div>
           <div className="space-x-4 mx-20">
             <Link
@@ -65,12 +72,12 @@ const AdminLogin = () => {
         </header>
 
         {/*signup form */}
-        <div className="bg-gray-900 p-8 mb-10 rounded-lg shadow-lg w-[500px] ">
-          <h2>
+        <div className="bg-gray-900 p-8 mb-40 rounded-lg shadow-lg w-[500px]  ">
+          <h2 className="text-center font-bold" >
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>
           <p className="text-gray-400 mb-6 text-center">
-            Just Login To Access AdminDashboard...
+            🚀 Just Login To Access AdminDashboard...
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -105,13 +112,20 @@ const AdminLogin = () => {
                 </span> */}
               </div>
             </div>
-            <button
+
+            {
+              loader ?  <div>
+              <Spiner />
+            </div> : <button 
               onClick={handleSubmit}
               type="submit"
-              className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition"
+              className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition cursor-pointer"
             >
               Login
             </button>
+            }
+            
+           
           </form>
         </div>
       </div>

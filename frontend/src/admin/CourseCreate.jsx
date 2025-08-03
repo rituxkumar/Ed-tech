@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Spiner from "../components/Spiner";
 // import { BACKEND_URL } from "../../utils/utils";
 
 const CourseCreate = () => {
@@ -10,6 +11,7 @@ const CourseCreate = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+    const [spiner, setSpiner] = useState(false);
   const navigate = useNavigate();
 
   const changePhotoHandler = (e) => {
@@ -30,40 +32,49 @@ const CourseCreate = () => {
     formData.append("image", image);
     formData.append("price", price);
 
-    const admin = localStorage.getItem("admin");
-    const token = admin.token;
+    const token = localStorage.getItem("admin");
+    // const token = admin.token;
     if (!token) {
       navigate("/admin/login");
       return;
     }
 
     try {
+      setSpiner(true)
       const response = await axios.post(
         "http://localhost:3000/api/v1/course/create",
         formData,
         {
           headers: {
-            Authorization: `Bearer${token}`,
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         }
       );
 
       console.log(response);
-    
-      if(response.data.success){
- setTitle("");
-      setImage("");
-      setPrice("");
-      setDescription("");
-      setImagePreview("");
-      }
+
+      if (response.data.success) {
         toast.success(response.data.message || "course created successfully🚀");
-     
+        navigate("/admin/our-courses")
+        setTitle("");
+        setImage("");
+        setPrice("");
+        setDescription("");
+        setImagePreview("");
+
+        navigate('/admin/our-courses')
+      } else {
+        console.log(response.data.message);
+        toast.error(response.data.message);
+      }
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.errors);
+    }finally{
+      setSpiner(false)
     }
+
   };
   return (
     <div>
@@ -121,12 +132,16 @@ const CourseCreate = () => {
               />
             </div>
 
-            <button
+            {
+              spiner ?<div> <Spiner/></div> :  <button
               type="submit"
               className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
             >
               Create Course
             </button>
+            }
+
+           
           </form>
         </div>
       </div>

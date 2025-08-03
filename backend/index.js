@@ -9,11 +9,11 @@ import fileUpload from "express-fileupload";
 import { v2 as cloudinary } from "cloudinary";
 import cors from "cors";
 
-// import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 
 
-// app.use(cookieParser());
-// app.use(express.urlencoded({extended:true}))
+app.use(cookieParser());
+app.use(express.urlencoded({extended:true}))
 
 app.use(express.json());
 dotenv.config();

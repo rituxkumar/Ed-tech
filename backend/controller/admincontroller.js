@@ -50,17 +50,22 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req,res) => {
+   console.log(("rrgrrg"));
    
   const { email, password } = req.body;
      console.log(email, password);
   try {
    
     const admin = await Admin.findOne({email:email});
+  
     console.log(admin);
+    if (!admin ) {
+      return res.status(400).json({ errors: "Invalid Credentials" });
+    }
     
     const isPasswordCorrect = await bcrypt.compare(password,admin.password);
 
-    if (!admin || !isPasswordCorrect) {
+    if ( !isPasswordCorrect) {
       return res.status(400).json({ errors: "Invalid Credentials" });
     }
     console.log("gggb");
@@ -86,7 +91,7 @@ export const login = async (req,res) => {
 
   } catch (error) {
      console.log("eeee");
-    res.status(500).json({ errors: "Error while login...." });
+    res.status(400).json({ errors: "Error while login...." });
     console.log("error while login....", error);
   }
 };

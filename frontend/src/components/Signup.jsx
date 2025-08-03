@@ -53,7 +53,7 @@ const Signup = () => {
         <header className="flex w-full  items-center justify-between p-6">
           <div className="space-x-2 flex items-center mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 className="text-2xl text-orange-400 font-bold">SkillLoom</h1>
+            <h1 onClick={()=>navigate('/')} className="text-2xl text-orange-400 font-bold  cursor-pointer">SkillLoom</h1>
           </div>
           <div className="space-x-4 mx-20">
             <Link
@@ -73,11 +73,11 @@ const Signup = () => {
 
         {/*signup form */}
         <div className="bg-gray-900 p-8 mb-10 rounded-lg shadow-lg w-[500px] ">
-          <h2>
+          <h2 className="text-center font-bold">
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>
           <p className="text-gray-400 mb-6 text-center">
-            Just Signup To Join Us...
+            🚀Just Signup To Join Us...
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -143,7 +143,7 @@ const Signup = () => {
             <button
               onClick={handleSubmit}
               type="submit"
-              className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition"
+              className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition  cursor-pointer"
             >
               Signup
             </button>

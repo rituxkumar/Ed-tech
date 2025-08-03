@@ -6,19 +6,22 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../../utils/utils";
 
 const OurCourses = () => {
-  const admin = localStorage.getItem("admin");
-  const token = admin.token;
+  const token = localStorage.getItem("admin");
+  
+  // const token = admin.token;
   const navigate = useNavigate();
   if(!token){
     toast.error("Please login to admin");
     navigate("/admin/login");
   }
   const [loading, setLoading] = useState(true);
+   const [spiner, setSpiner] = useState(false);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
+        setSpiner(true)
         const response = await axios.get(
           `${BACKEND_URL}/api/v1/course/courses`,
           {
@@ -31,6 +34,8 @@ const OurCourses = () => {
         setLoading(false);
       } catch (error) {
         console.log("error in fetchCourses ", error);
+      }finally{
+        setSpiner(false)
       }
     };
     fetchCourses();
@@ -63,31 +68,33 @@ const OurCourses = () => {
   }
 
   return (
-    <div className="bg-gray-100 p-8 mx-auto space-y-4">
+    <div className="bg-gray-100 p-8 mx-auto ">
       <h1 className="text-3xl font-bold text-center mb-8">Our Courses</h1>
       <Link
-        className="bg-orange-400 py-2 px-4 rounded-lg text-white hover:bg-orange-950 duration-300"
+        className="bg-orange-400 py-2 px-4 rounded-lg text-white hover:bg-orange-950 duration-300 "
         to={"/admin/dashboard"}
       >
         Go to dashboard
       </Link>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-1 mt-7 ">
         {courses.map((course) => (
-          <div key={course._id} className="bg-white shadow-md rounded-lg p-4">
+          <div key={course._id} className="bg-white shadow-md rounded-lg p-4 w-[250px] mt-4 ">
             {/* Course Image */}
-            <img
+            <img 
               src={course?.image?.url}
               alt={course.title}
-              className="h-40 w-full object-cover rounded-t-lg"
+              className="w-[200px] h-[200px]  rounded-t-lg"
             />
             {/* Course Title */}
             <h2 className="text-xl font-semibold mt-4 text-gray-800">
-              {course.title}
+              {course.title.length > 20
+                ? `${course.title.slice(0, 20)}...`
+                : course.title}
             </h2>
             {/* Course Description */}
             <p className="text-gray-600 mt-2 text-sm">
-              {course.description.length > 200
-                ? `${course.description.slice(0, 200)}...`
+              {course.description.length > 20
+                ? `${course.description.slice(0, 20)}...`
                 : course.description}
             </p>
             {/* Course Price */}
@@ -103,13 +110,13 @@ const OurCourses = () => {
             <div className="flex justify-between">
               <Link
                 to={`/admin/update-course/${course._id}`}
-                className="bg-orange-500 text-white py-2 px-4 mt-4 rounded hover:bg-blue-600"
+                className="bg-orange-500 text-white py-2 px-4  rounded hover:bg-blue-600"
               >
                 Update
               </Link>
               <button
                 onClick={() => handleDelete(course._id)}
-                className="bg-red-500 text-white py-2 px-4 mt-4 rounded hover:bg-red-600"
+                className="bg-red-500 text-white py-2 px-4  rounded hover:bg-red-600"
               >
                 Delete
               </button>
