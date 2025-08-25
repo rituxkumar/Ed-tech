@@ -15,6 +15,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     try {
       setLoader(true);
       const response = await axios.post(
@@ -66,7 +67,7 @@ const AdminLogin = () => {
               to={"/signup"}
               className="bg-transparent text-white py-2 px-4 border border-white rounded"
             >
-              Signup
+            User Signup
             </Link>
           </div>
         </header>

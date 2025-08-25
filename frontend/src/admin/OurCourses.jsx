@@ -39,14 +39,14 @@ const OurCourses = () => {
       }
     };
     fetchCourses();
-  }, []);
+  }, [courses]);
 
   // delete course
 
-  const handledeleteCourse = async (id) => {
+  const handleDelete = async (courseId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/v1/course/delete/${id}`,
+        `http://localhost:3000/api/v1/course/delete/${courseId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +55,8 @@ const OurCourses = () => {
         }
       );
       toast.success(response.data.message);
-      const updatedCourses = courses.filter((course) => course._id !== id);
+      
+      const updatedCourses = courses.filter((course) => course._id !== courseId);
       setCourses(updatedCourses);
     } catch (error) {
       console.log("Error while deleting course", error);
@@ -68,7 +69,7 @@ const OurCourses = () => {
   }
 
   return (
-    <div className="bg-gray-100 p-8 mx-auto ">
+    <div className="bg-gray-100 p-8 mx-auto bg-gradi">
       <h1 className="text-3xl font-bold text-center mb-8">Our Courses</h1>
       <Link
         className="bg-orange-400 py-2 px-4 rounded-lg text-white hover:bg-orange-950 duration-300 "
@@ -116,7 +117,7 @@ const OurCourses = () => {
               </Link>
               <button
                 onClick={() => handleDelete(course._id)}
-                className="bg-red-500 text-white py-2 px-4  rounded hover:bg-red-600"
+                className="bg-red-500 text-white py-2 px-4  rounded hover:bg-red-900 cursor-pointer"
               >
                 Delete
               </button>

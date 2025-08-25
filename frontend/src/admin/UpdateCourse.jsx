@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../../utils/utils";
+import Spiner from "../components/Spiner";
 
 const UpdateCourse = () => {
 
@@ -14,13 +15,14 @@ const UpdateCourse = () => {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchCoursesData = async()=>{
       try {
+      
         const {data} =await axios.get(`http://localhost:3000/api/v1/course/${id}`,{
           withCredentials:true,
         })
@@ -29,10 +31,11 @@ const UpdateCourse = () => {
         setDescription(data.course.description)
         setPrice(data.course.price)
         setImagePreview(data.course?.image?.url)
-        setLoading(false)
+       
         
       } catch (error) {
         console.log(error);
+        
         
       }
     }
@@ -64,6 +67,7 @@ const UpdateCourse = () => {
       return;
     }
     try {
+       setLoading(true)
       const response = await axios.put(
         `${BACKEND_URL}/api/v1/course/update/${id}`,
         formData,
@@ -79,17 +83,20 @@ const UpdateCourse = () => {
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.errors);
+    }finally{
+      setLoading(false)
     }
+
   };
 
-  if (loading) {
-    return <p className="text-center text-gray-500">Loading...</p>;
-  }
+  // if (loading) {
+  //   return <p className="text-center text-gray-500">Loading...</p>;
+  // }
 
    return (
-    <div>
+    <div className="bg-gradient-to-r from-black to-blue-900 text-white ">
       <div className="min-h-screen w-full  py-10">
-        <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-lg">
+        <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-lg ">
           <h3 className="text-2xl font-semibold mb-4">Update Course</h3>
           <form onSubmit={handleUpdateCourse} className="space-y-6">
             <div className="space-y-2">
@@ -125,13 +132,13 @@ const UpdateCourse = () => {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 ">
               <label className="block text-lg">Course Image</label>
               <div className="flex items-center justify-center">
                 <img
                   src={imagePreview ? `${imagePreview}` : "/imgPL.webp"}
                   alt="Course"
-                  className="w-[300px] max-w-sm h-auto rounded-md object-cover"
+                  className="w-[200px] mb-2 max-w-sm h-[200px] rounded-md object-cover"
                 />
               </div>
               <input
@@ -140,13 +147,15 @@ const UpdateCourse = () => {
                 className="w-full px-3 py-2 border border-gray-400 rounded-md outline-none"
               />
             </div>
-
+            {  loading  ?  <Spiner />:
+             
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
+              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 cursor-pointer"
             >
               Update Course
             </button>
+}
           </form>
         </div>
       </div>

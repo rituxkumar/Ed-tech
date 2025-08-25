@@ -77,7 +77,7 @@ const AdminSignup = () => {
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>
           <p className="text-gray-400 mb-6 text-center">
-           🚀 Just Signup To Play With DashBoard...
+           🚀 Just Signup To Play With Admin DashBoard...
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
