@@ -118,7 +118,7 @@ const Home = () => {
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="bg-transparent text-white py-2 px-4 border border-white rounded"
+                className="bg-transparent text-white py-2 px-4 border border-white rounded ml-12 md:ml-1"
               >
                 Logout
               </button>

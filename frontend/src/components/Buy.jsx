@@ -54,7 +54,7 @@ const Buy = () => {
 
   return (
     <div className="flex h-screen items-center justify-center flex-col ">
-      <div className="border-2 rounded-md p-5">
+      <div className="border-2 rounded-md p-5 w-[80%]">
         <img className="w-[300px] h-[300px]" src={image} alt="" />
         <p>
           Title :<span className="text-center font-semibold text-blue-500">{title}</span>{" "}

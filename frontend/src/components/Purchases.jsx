@@ -150,7 +150,7 @@ function Purchases() {
             {purchases.map((purchase, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg ml-6 md:ml-0 w-[350px] md:w-[100%] shadow-md p-6 mb-6"
+                className="bg-white rounded-lg md:ml-0 w-[320px] md:w-[100%] shadow-md p-6 mb-6"
               >
                 <div className="flex flex-col  items-center space-y-4">
                   <img

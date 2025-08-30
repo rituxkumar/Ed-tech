@@ -51,7 +51,7 @@ const Login = () => {
         <header className="flex w-full md:gap-1  items-center justify-between p-6">
           <div className="space-x-2 flex items-center md:mx-20   ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 onClick={()=>navigate('/')}  className="text-2xl text-orange-400 font-bold cursor-pointer">SkillLoom</h1>
+            <h1 onClick={()=>navigate('/')}  className="md:text-2xl text-orange-400 font-bold cursor-pointer">SkillLoom</h1>
           </div>
           <div className="space-x-4 mx-20 ">
             <Link

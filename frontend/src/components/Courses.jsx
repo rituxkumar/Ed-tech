@@ -163,7 +163,7 @@ const Courses = () => {
               No course posted yet by admin
             </p>
           ) : (
-            <div className="grid ml-15 md:ml-0 md:grid-cols-3  ">
+            <div className="grid ml-8 md:ml-0 md:grid-cols-3  ">
               {courses.map((course) => (
                 <div
                   key={course._id}
