@@ -18,14 +18,14 @@ const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-     const token = localStorage.getItem("user");
-     if(token){
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
       setIsLoggedIn(true);
-     }else{
+    } else {
       setIsLoggedIn(false);
-     }
-  },[])
+    }
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -96,18 +96,28 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-black to-blue-900">
+    <div className=" overflow-x-hidden bg-gradient-to-r from-black to-blue-900">
       <div className="h-screen text-white container mx-auto">
         <header className="flex  items-center justify-between p-6">
-          <div className="space-x-2 flex items-center mx-20 ">
+          <div className="space-x-2 flex items-center md:mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 onClick={()=>navigate('/')} className="text-2xl text-orange-400 font-bold cursor-pointer ">SkillLoom</h1>
-            <p onClick={()=>navigate('/admin/dashboard')} className="px-3 py-1 border-2 rounded-md cursor-pointer hover:bg-blue-600">Admin</p>
+            <h1
+              onClick={() => navigate("/")}
+              className="hidden md:block text-2xl text-orange-400 font-bold cursor-pointer "
+            >
+              SkillLoom
+            </h1>
+            <p
+              onClick={() => navigate("/admin/dashboard")}
+              className="px-3 py-1 border-2 rounded-md cursor-pointer hover:bg-blue-600 mr-5 md:mr-0"
+            >
+              Admin
+            </p>
           </div>
           <div className="space-x-4 mx-20">
             {isLoggedIn ? (
-              <button 
-                 onClick = {handleLogout}
+              <button
+                onClick={handleLogout}
                 className="bg-transparent text-white py-2 px-4 border border-white rounded"
               >
                 Logout
@@ -131,16 +141,22 @@ const Home = () => {
           </div>
         </header>
         <section className="text-center mb-20">
-          <h1 className="text-4xl font-semibold text-orange-400">SkillLoom</h1>
+          <h1 className=" md:block text-4xl font-semibold text-orange-400">SkillLoom</h1>
           <br />
           <p className="text-gray-500">
             Enhanced Your Skills crafted by experts.
           </p>
           <div className="space-x-4 mt-8">
-            <Link to={"/courses"} className="bg-green-400 text-white py-3 px-6 rounded font-semibold hover:bg-white duration-300 hover:text-black">
+            <Link
+              to={"/courses"}
+              className="bg-green-400 text-white py-3 px-6 rounded font-semibold hover:bg-white duration-300 hover:text-black"
+            >
               Explore courses
             </Link>
-            <Link to={"https://www.youtube.com/watch?v=8ASs9z38YVU"} className="bg-white text-black py-3 px-6 rounded font-semibold hover:bg-green-400 duration-300 hover:text-white">
+            <Link
+              to={"https://www.youtube.com/watch?v=8ASs9z38YVU"}
+              className="bg-white text-black py-3 px-6 rounded font-semibold hover:bg-green-400 duration-300 hover:text-white"
+            >
               Courses Videos
             </Link>
           </div>
@@ -150,9 +166,9 @@ const Home = () => {
           <div className="slider-container  px-20  ">
             <Slider {...settings}>
               {courses.map((course) => (
-                <div
+                <div 
                   key={course._id}
-                  className=" p-4 rounded-md items-center  "
+                  className=" p-4 rounded-md items-center "
                 >
                   <div className=" ">
                     <div className="flex flex-col justify-center items-center">
@@ -165,7 +181,10 @@ const Home = () => {
                         <h2 className="text-white text-center pb-2">
                           {course.title}
                         </h2>
-                        <button onClick={()=>navigate('/courses')} className="bg-orange-400 text-white px-3 py-1 rounded-3xl cursor-pointer hover:bg-orange-500">
+                        <button
+                          onClick={() => navigate("/courses")}
+                          className="bg-orange-400 text-white px-3 py-1 rounded-3xl cursor-pointer hover:bg-orange-500"
+                        >
                           Enroll now
                         </button>
                       </div>

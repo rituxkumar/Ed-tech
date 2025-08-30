@@ -101,7 +101,7 @@ const Courses = () => {
             </li>
             <li className="mb-4">
               <a href="#" className="flex items-center text-blue-500">
-                <FaDiscourse className="mr-2" /> Courses
+                <FaDiscourse className="mr-2 " /> Courses
               </a>
             </li>
             <li className="mb-4">
@@ -134,22 +134,22 @@ const Courses = () => {
       </aside>
 
      
-      <main className="ml-0  w-full bg-white p-10">
-        <header className="flex justify-between items-center mb-10">
-          <h1 className="text-xl font-bold">Courses</h1>
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center">
+      <main className="ml-0  w-full bg-white p-4 md:p-10">
+        <header className="flex justify-center md:justify-between items-center mb-10">
+          <h1 className="text-xl font-bold hidden md:block">Courses</h1>
+          <div className="flex items-center space-x-3 ">
+            <div className="flex items-center ">
               <input
                 type="text"
                 placeholder="Type here to search..."
-                className="border border-gray-300 rounded-l-full px-4 py-2 h-10 focus:outline-none"
+                className="border border-gray-300 rounded-l-full px-4 py-2 h-10 ml-9 md:ml-0 focus:outline-none "
               />
               <button className="h-10 border border-gray-300 rounded-r-full px-4 flex items-center justify-center">
                 <FiSearch className="text-xl text-gray-600" />
               </button>
             </div>
 
-            <FaCircleUser className="text-4xl text-blue-600" />
+            <FaCircleUser className="text-4xl hidden md:block text-blue-600" />
           </div>
         </header>
 
@@ -163,7 +163,7 @@ const Courses = () => {
               No course posted yet by admin
             </p>
           ) : (
-            <div className="grid sm:grid-cols-2 md:grid-cols-3  ">
+            <div className="grid ml-15 md:ml-0 md:grid-cols-3  ">
               {courses.map((course) => (
                 <div
                   key={course._id}
