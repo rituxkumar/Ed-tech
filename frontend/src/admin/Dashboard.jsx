@@ -52,7 +52,7 @@ function Dashboard() {
           </Link>
         </nav>
       </div>
-      <div className="flex h-screen text-white items-center justify-center ml-[40%]">
+      <div className="flex h-screen text-white items-center justify-center mx-auto ">
         Hospitality!!!
       </div>
     </div>

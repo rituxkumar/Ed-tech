@@ -77,7 +77,7 @@ const OurCourses = () => {
       >
         Go to dashboard
       </Link>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-1 mt-7 ">
+      <div className="grid grid-cols-1 ml-17 md:ml-1 sm:grid-cols-2 lg:grid-cols-5 gap-1 mt-7 ">
         {courses.map((course) => (
           <div key={course._id} className="bg-white shadow-md rounded-lg p-4 w-[250px] mt-4 ">
             {/* Course Image */}
