@@ -17,6 +17,7 @@ const App = () => {
 
  const user = localStorage.getItem("user");
  const admin = localStorage.getItem("admin");
+ 
 
   return (
     <div>
@@ -32,7 +33,7 @@ const App = () => {
         {/* Admin Route*/}
         <Route path="/admin/signup" element={<AdminSignup />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={admin?<Dashboard />:<Navigate to={"/admin/login"}/>} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/create-course" element={<CourseCreate />} />
         <Route path="/admin/update-course/:id" element={<UpdateCourse />} />
         <Route path="/admin/our-courses" element={<OurCourses />} />
