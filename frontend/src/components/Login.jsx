@@ -70,7 +70,7 @@ const Login = () => {
         </header>
 
         {/*signup form */}
-        <div className="bg-gray-900 p-8 my-auto rounded-lg shadow-lg w-[500px]  ">
+        <div className="bg-gray-900 p-8 my-auto rounded-lg shadow-lg w-[350px] md:w-[500px]  ">
           <h2  className="text-center font-bold ">
             Welcome to <span className="text-orange-400 ">SkillLoom</span>
           </h2>

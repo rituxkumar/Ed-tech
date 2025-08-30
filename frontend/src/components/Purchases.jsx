@@ -130,8 +130,10 @@ function Purchases() {
         )}
       </button>
 
+       
+
       <div
-        className={`flex-1 p-8 bg-gray-50 transition-all duration-300 ${
+        className={`flex-1 p-8  bg-gray-50 transition-all duration-300 ${
           isSidebarOpen ? "ml-64" : "ml-0"
         } md:ml-64`}
       >
@@ -148,9 +150,9 @@ function Purchases() {
             {purchases.map((purchase, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md p-6 mb-6"
+                className="bg-white rounded-lg ml-6 md:ml-0 w-[350px] md:w-[100%] shadow-md p-6 mb-6"
               >
-                <div className="flex flex-col items-center space-y-4">
+                <div className="flex flex-col  items-center space-y-4">
                   <img
                     className="rounded-lg w-full h-48 object-cover"
                     src={
