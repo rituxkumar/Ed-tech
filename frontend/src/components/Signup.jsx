@@ -50,8 +50,8 @@ const Signup = () => {
   return (
     <div className="bg-gradient-to-r from-black to-blue-900">
       <div className="flex items-center justify-between text-white h-screen container mx-auto flex-col">
-        <header className="flex w-full  items-center justify-between p-6">
-          <div className="space-x-2 flex items-center mx-20 ">
+        <header className="flex w-full  md:gap-12 items-center justify-between p-6">
+          <div className="space-x-2 flex items-center md:mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
             <h1 onClick={()=>navigate('/')} className="text-2xl text-orange-400 font-bold  cursor-pointer">SkillLoom</h1>
           </div>
@@ -72,7 +72,7 @@ const Signup = () => {
         </header>
 
         {/*signup form */}
-        <div className="bg-gray-900 p-8 mb-10 rounded-lg shadow-lg w-[500px] ">
+        <div className="bg-gray-900 p-8 mb-10 rounded-lg shadow-lg w-[350px] md:w-[500px] ">
           <h2 className="text-center font-bold">
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>

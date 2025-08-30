@@ -79,7 +79,7 @@ const CourseCreate = () => {
   return (
     <div>
       <div className="min-h-screen  py-10">
-        <div className="max-w-4xl mx-auto p-6 border  rounded-lg shadow-lg">
+        <div className="max-w-4xl mx-auto p-6 border w-[350px] rounded-lg shadow-lg">
           <h3 className="text-2xl font-semibold mb-8">Create Course</h3>
 
           <form onSubmit={handleCreateCourse} className="space-y-6">

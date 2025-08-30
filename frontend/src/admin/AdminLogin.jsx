@@ -52,11 +52,11 @@ const AdminLogin = () => {
     <div className="bg-gradient-to-r from-black to-blue-900">
       <div className="flex items-center justify-between text-white h-screen container mx-auto flex-col">
         <header className="flex w-full  items-center justify-between p-6">
-          <div className="space-x-2 flex items-center md:mx-20 ">
+          <div className="space-x- flex items-center md:mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 onClick={()=>navigate("/")} className="text-2xl text-orange-400 font-bold cursor-pointer">SkillLoom</h1>
+            <h1 onClick={()=>navigate("/")} className="md:text-2xl text-orange-400 font-bold cursor-pointer mr-2">SkillLoom</h1>
           </div>
-          <div className="space-x-4 mx-20">
+          <div className="space-x-4 mx-11 md:mx-20">
             <Link
               to={"/admin/signup"}
               className="bg-transparent text-white py-2 px-4 border border-white rounded"
@@ -73,7 +73,7 @@ const AdminLogin = () => {
         </header>
 
         {/*signup form */}
-        <div className="bg-gray-900 p-8 mb-40 rounded-lg shadow-lg  md:w-[500px]  ">
+        <div className="bg-gray-900 p-8 mb-40 rounded-lg shadow-lg w-[350px]  md:w-[500px]  ">
           <h2 className="text-center font-bold" >
             Welcome to <span className="text-orange-400">SkillLoom</span>
           </h2>
