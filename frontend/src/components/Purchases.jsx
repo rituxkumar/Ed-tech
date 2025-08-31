@@ -106,7 +106,7 @@ function Purchases() {
             </li> */}
             <li>
               {isLoggedIn ? (
-                <button onClick={handleLogout} className="flex items-center">
+                <button onClick={handleLogout} className="flex items-center cursor-pointer">
                   <IoLogOut className="mr-2" /> Logout
                 </button>
               ) : (
