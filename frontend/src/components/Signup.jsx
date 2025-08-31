@@ -3,18 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import Spiner from "./Spiner";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage,setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(
@@ -34,16 +37,17 @@ const Signup = () => {
       );
 
       console.log("SignUp Done:", response.data);
-      alert(response.data.message);
+      toast.success("Signup successfully !!");
+
       navigate("/login");
     } catch (error) {
-     
       if (error.response) {
-       
-         toast.error(error.response.data.errors[0])
+        toast.error(error.response.data.errors[0]);
         setErrorMessage(error.response.data.errors || "Signup Failed!!!");
       }
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,7 +57,12 @@ const Signup = () => {
         <header className="flex w-full  md:gap-12 items-center justify-between p-6">
           <div className="space-x-2 flex items-center md:mx-20 ">
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
-            <h1 onClick={()=>navigate('/')} className="md:text-2xl text-orange-400 font-bold  cursor-pointer">SkillLoom</h1>
+            <h1
+              onClick={() => navigate("/")}
+              className="md:text-2xl text-orange-400 font-bold  cursor-pointer"
+            >
+              SkillLoom
+            </h1>
           </div>
           <div className="space-x-4 mx-20">
             <Link
@@ -139,14 +148,18 @@ const Signup = () => {
                 </span> */}
               </div>
             </div>
-       
-            <button
-              onClick={handleSubmit}
-              type="submit"
-              className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition  cursor-pointer"
-            >
-              Signup
-            </button>
+
+            {loading ? (
+              <Spiner />
+            ) : (
+              <button
+                onClick={handleSubmit}
+                type="submit"
+                className="bg-orange-400 hover:bg-blue-500 w-full text-white py-3 px-6 rounded-md transition  cursor-pointer"
+              >
+                Signup
+              </button>
+            )}
           </form>
         </div>
       </div>
