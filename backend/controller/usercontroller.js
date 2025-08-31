@@ -67,7 +67,7 @@ export const login = async (req, res) => {
     });
 
     const cookieOptions = {
-      expiresIn: 24 * 60 * 60 * 1000,
+      expiresIn: 72 * 60 * 60 * 1000,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict", // attack
