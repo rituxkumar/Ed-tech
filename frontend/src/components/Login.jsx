@@ -53,7 +53,7 @@ const Login = () => {
             <img src={logo} alt="" className="w-10 h-10 rounded-full" />
             <h1 onClick={()=>navigate('/')}  className="md:text-2xl text-orange-400 font-bold cursor-pointer">SkillLoom</h1>
           </div>
-          <div className="space-x-4 mx-20 ">
+          <div className="space-x-4 md:mx-20 ">
             <Link
               to={"/login"}
               className="bg-transparent text-white py-2 px-4 border border-white rounded"

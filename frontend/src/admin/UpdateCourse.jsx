@@ -96,7 +96,7 @@ const UpdateCourse = () => {
    return (
     <div className="bg-gradient-to-r from-black to-blue-900 text-white ">
       <div className="min-h-screen w-full  py-10">
-        <div className="max-w-2xl w-[80%] mx-auto p-6 border rounded-lg shadow-lg  ">
+        <div className="max-w-2xl w-[78%] md:w-[80%] mx-auto p-6 border rounded-lg shadow-lg  ">
           <h3 className="text-2xl font-semibold mb-4">Update Course</h3>
           <form onSubmit={handleUpdateCourse} className="space-y-6">
             <div className="space-y-2">

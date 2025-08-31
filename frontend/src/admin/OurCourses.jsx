@@ -72,14 +72,14 @@ const OurCourses = () => {
     <div className="bg-gray-100 p-8 mx-auto bg-gradi">
       <h1 className="text-3xl font-bold text-center mb-8">Our Courses</h1>
       <Link
-        className="bg-orange-400 py-2 px-4 rounded-lg text-white hover:bg-orange-950 duration-300 "
+        className="bg-orange-400 py-2 px-4 rounded-lg text-white hover:bg-orange-950 duration-300 ml-9 md:ml-1 "
         to={"/admin/dashboard"}
       >
         Go to dashboard
       </Link>
-      <div className="grid grid-cols-1 ml-17 md:ml-1 sm:grid-cols-2 lg:grid-cols-5 gap-1 mt-7 ">
+      <div className="grid grid-cols-1  md:ml-1 sm:grid-cols-2 lg:grid-cols-5 gap-1 mt-7 ">
         {courses.map((course) => (
-          <div key={course._id} className="bg-white shadow-md rounded-lg p-4 w-[250px] mt-4 ">
+          <div key={course._id} className="bg-white shadow-md rounded-lg p-4 w-[250px] mt-4 ml-8 md:ml-1 ">
             {/* Course Image */}
             <img 
               src={course?.image?.url}

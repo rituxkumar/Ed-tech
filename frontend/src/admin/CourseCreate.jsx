@@ -135,7 +135,7 @@ const CourseCreate = () => {
             {
               spiner ?<div> <Spiner/></div> :  <button
               type="submit"
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200"
+              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors duration-200 cursor-pointer"
             >
               Create Course
             </button>

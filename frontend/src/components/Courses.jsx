@@ -166,8 +166,8 @@ const Courses = () => {
             <div className="grid ml-8 md:ml-0 md:grid-cols-3  ">
               {courses.map((course) => (
                 <div
-                  key={course._id}
-                  className="border mb-6 border-gray-200 rounded-lg p-4 gap-2 shadow-sm w-[300px]"
+                  key={course._id} 
+                  className="border ml-1 mb-6 border-gray-200 rounded-lg p-4 gap-2 shadow-sm w-[300px]"
                 >
                   <img
                     src={course.image?.url}
