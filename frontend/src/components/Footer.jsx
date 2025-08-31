@@ -68,7 +68,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className=" w-full md:w-1/2 flex flex-wrap md:flex-nowrap justify-between">
+          <div className=" w-[30%] md:w-1/2 flex flex-wrap md:flex-nowrap justify-between">
             <div>
               <h2 className="font-semibold mb-5">RESOURCES</h2>
               <ul className="text-sm text-gray-500 space-y-2 list-none">
@@ -88,7 +88,7 @@ const Footer = () => {
             </div>
             <div>
               <h2 className="font-semibold -gray-900 mb-5">COMPANY</h2>
-              <div className="text-sm text-gray-500 space-y-2 list-none">
+              <div className="text-sm md:w-1/2 text-gray-500 space-y-2 list-none">
                 <li>
                   <a href="#">About</a>
                 </li>
