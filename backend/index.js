@@ -26,7 +26,7 @@ app.use(
 
 app.use(
   cors({
-    origin:[ process.env.FRONTEND_URL , "http://10.202.137.147:5173"],
+    origin:["https://ed-tech-eta-five.vercel.app/"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     // allowedHeaders: ["Content-Type", "Authorization"],
