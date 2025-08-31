@@ -38,7 +38,9 @@ const Courses = () => {
    useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/v1/course/courses`, {
+        console.log(BACKEND_URL);
+        
+        const response = await axios.get(`https://ed-tech-l05d.onrender.com/api/v1/course/courses`, {
           withCredentials: true,
         });
 
