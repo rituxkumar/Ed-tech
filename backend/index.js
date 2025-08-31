@@ -26,7 +26,7 @@ app.use(
 
 app.use(
   cors({
-    origin:["https://ed-tech-eta-five.vercel.app/"],
+    origin:["https://ed-tech-eta-five.vercel.app"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     // allowedHeaders: ["Content-Type", "Authorization"],
