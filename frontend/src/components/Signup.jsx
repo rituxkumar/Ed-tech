@@ -18,7 +18,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        "https://ed-tech-l05d.onrender.com/api/v1/user/signup",
         {
           firstName,
           lastName,

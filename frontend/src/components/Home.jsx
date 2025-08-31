@@ -29,7 +29,7 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      const response = axios.get("http://localhost:3000/api/v1/user/logout", {
+      const response = axios.get("https://ed-tech-l05d.onrender.com/api/v1/user/logout", {
         withCredentials: true,
       });
       toast.success((await response).data.message);
@@ -46,7 +46,7 @@ const Home = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/course/courses",
+          "https://ed-tech-l05d.onrender.com/api/v1/course/courses",
           {
             withCredentials: true,
           }

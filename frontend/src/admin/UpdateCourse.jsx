@@ -23,7 +23,7 @@ const UpdateCourse = () => {
     const fetchCoursesData = async()=>{
       try {
       
-        const {data} =await axios.get(`http://localhost:3000/api/v1/course/${id}`,{
+        const {data} =await axios.get(`https://ed-tech-l05d.onrender.com/api/v1/course/${id}`,{
           withCredentials:true,
         })
         console.log(data);

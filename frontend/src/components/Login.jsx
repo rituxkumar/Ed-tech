@@ -18,7 +18,7 @@ const Login = () => {
     try {
       setLoader(true);
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
+        "https://ed-tech-l05d.onrender.com/api/v1/user/login",
         {
           email,
           password,

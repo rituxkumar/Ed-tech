@@ -46,7 +46,7 @@ const OurCourses = () => {
   const handleDelete = async (courseId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/v1/course/delete/${courseId}`,
+        `https://ed-tech-l05d.onrender.com/api/v1/course/delete/${courseId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
